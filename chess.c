@@ -307,12 +307,12 @@ int legalpawn (char *start, char *end, char*player) {
     int p;
     if (c % 2 == 0)  // evaluates to see who's move it is.
     {
-        p = 1; //player is black
+        p = 1; //player is white tokens
     }
     else {
-        p = 2; //player is white
+        p = 2; //player is black tokens
     }
-
+//if its the white players turn....
     if (p == 1) {
         if (n < m) { // checks to see if the move is going backwards, returns an error.
             a = 1;
@@ -349,6 +349,7 @@ int legalpawn (char *start, char *end, char*player) {
             }
         }
     }
+    //if its the black players turn...
     if (p == 2) {
         if (n > m) { // if the move is going backwards, its an error.
             a = 1;
@@ -372,7 +373,7 @@ int legalpawn (char *start, char *end, char*player) {
             }
             else {
                 if (board[8 - n][e - 'a'].color != 0) {
-                    if ((board[8 - n][e - 'a'].color == 'w') && (e-d)==1){
+                    if ((board[8 - n][e - 'a'].color == 'w') && (abs(e-d))==1){
                         printf("%s took %c-%c!!!\n", player, board[8 - n][e - 'a'].color, board[8 - n][e - 'a'].piece); //prints what piece was taken if one was taken
                     }
                     if (board[8 - n][e - 'a'].color == 'b') {
@@ -394,21 +395,26 @@ int legalpawn (char *start, char *end, char*player) {
 //check for the rook
 int legalrook (char *start, char *end, char*player)
 {
-	int a = 0;
-	char d = start[0];
-	int m = start[1]-48;
-	char e = end[0];
-	int n = end[1]-48;
-	int p;
+    int a = 0;
+    char d = start[0];
+    int m = start[1];
+    char e = end[0];
+    int n = end[1];
+    int p;
+    if (c % 2 == 0)  // evaluates to see who's move it is.
+    {
+        p = 1; //player is white tokens
+    }
+    else {
+        p = 2; //player is black tokens
+    }
+    if((d != e) && (m != n)){ //makes sure the move is only horizontal or vertical
+        a = 1;
+    }
 
-	if(d != e)
-	{
-		a = 1;
-	}
-	else 
-	{		
-		printf("%s moved a ROOK to %c-%d\n",player,e,n);
-	}
+    if(a == 0 ){
+        printf("%s moved a ROOK to %c-%d\n",player,e,n);
+    }
 	return a;
 }
 
@@ -416,16 +422,16 @@ int legalrook (char *start, char *end, char*player)
 int legalknight (char *start, char *end, char*player)
 {
 	int a = 0;
-	char d = start[0]-'a';
-	int m = start[1]-48;
-	char e = end[0]-'a';
-	int n = end[1]-48;
+	char d = start[0];
+	int m = start[1];
+	char e = end[0];
+	int n = end[1];
 
 	if((abs(n-m)==2 && abs(e-d) == 1) || (abs(n-m)==1 && abs(e-d)== 2))
 	{	
-		if(board[8-n][e-'a'].color == 0)	
+		if(board[56-n][e-'a'].color == 0)
 		{		
-			printf("%s moved a KNIGHT to %c-%d\n",player, e+'a',n);
+			printf("%s moved a KNIGHT to %c-%d\n",player, e,n);
 		}
 	}
 	else 
