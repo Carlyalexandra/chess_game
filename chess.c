@@ -331,7 +331,10 @@ int legalpawn (char *start, char *end, char*player) {
             }
         }
         if (d != e) { // checks to see if moving diagonally is a valid move.
-            if (abs(e - d) > 1) {
+            if (abs(e - d) != 1) {
+                a = 1;
+            }
+            if(m == n){
                 a = 1;
             }
             else {
@@ -369,6 +372,9 @@ int legalpawn (char *start, char *end, char*player) {
         }
         if (d != e) { // checks to see if moving diagonally is a valid move.
             if (abs(e - d) > 1) {
+                a = 1;
+            }
+            if(m == n){
                 a = 1;
             }
             else {
@@ -411,9 +417,31 @@ int legalrook (char *start, char *end, char*player)
     if((d != e) && (m != n)){ //makes sure the move is only horizontal or vertical
         a = 1;
     }
+    if(d == e){
+        int q = m-48;
+        if(m > n) {
+            for (; q < m - n;) {
+                q--;
+
+                if (board[q][e - 'a'].color != 0) {
+                    a = 1;
+                }
+            }
+        }
+        if(n > m ){
+            for (;q < n-m ;) {
+                printf("made it here\n");
+                q++;
+                if(board[q][e - 'a'].color != 0) {
+                    a = 1;
+                }
+            }
+        }
+    }
+
 
     if(a == 0 ){
-        printf("%s moved a ROOK to %c-%d\n",player,e,n);
+        printf("%s moved a ROOK to %c-%d\n",player,e,n-48);
     }
 	return a;
 }
@@ -429,7 +457,7 @@ int legalknight (char *start, char *end, char*player)
 
 	if((abs(n-m)==2 && abs(e-d) == 1) || (abs(n-m)==1 && abs(e-d)== 2))
 	{	
-		if(board[56-n][e-'a'].color == 0)
+		if(board[48-n][e-'a'].color == 0)
 		{		
 			printf("%s moved a KNIGHT to %c-%d\n",player, e,n);
 		}

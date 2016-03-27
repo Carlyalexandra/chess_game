@@ -12,9 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b48a40d-4314-4f3a-acc4-aa2d56e3bdf8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a.out" afterPath="$PROJECT_DIR$/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chess.c" afterPath="$PROJECT_DIR$/chess.c" />
     </list>
     <ignored path="chess.iws" />
@@ -39,8 +37,8 @@
       <file leaf-file-name="chess.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chess.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="678">
-              <caret line="437" column="5" selection-start-line="437" selection-start-column="5" selection-end-line="437" selection-end-column="5" />
+            <state relative-caret-position="245">
+              <caret line="425" column="26" selection-start-line="425" selection-start-column="26" selection-end-line="425" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -90,8 +88,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="250" />
-    <option name="y" value="23" />
+    <option name="x" value="410" />
+    <option name="y" value="103" />
     <option name="width" value="1393" />
     <option name="height" value="1000" />
   </component>
@@ -330,7 +328,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="250" y="23" width="1393" height="1000" extended-state="0" />
+    <frame x="410" y="103" width="1393" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19382627" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -391,8 +389,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chess.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="437" column="5" selection-start-line="437" selection-start-column="5" selection-end-line="437" selection-end-column="5" />
+        <state relative-caret-position="245">
+          <caret line="425" column="26" selection-start-line="425" selection-start-column="26" selection-end-line="425" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
