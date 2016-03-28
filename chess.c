@@ -139,7 +139,6 @@ move getmove(char* player)
 	scanf("%s", start);
 	while (isvalidopen(start, player) == 1)
 	{
-		printf("Not a valid entry\n");
 		printf("It's your turn, %s, what piece would you like to move?\nPlease enter the coordinates, with the letter followed by the number or if you wish to forfeit simply enter Q:\n", player);
 		scanf("%s", start);
         if((strcmp(start, "q") == 0) || (strcmp(start, "Q") == 0))
@@ -163,7 +162,6 @@ move getmove(char* player)
  	scanf("%s", end);
 	while (isvalidmove(start, end, player) == 1)
 	{
-		printf("Not a valid entry\n");
 		printf("Please enter the coordinates of where you would like to move to, with the letter followed by the number\nor if you wish to forfeit simply enter Q:\n");
         scanf("%s", end);
         if((strcmp(end, "q") == 0) || (strcmp(end, "Q") == 0))
@@ -196,14 +194,22 @@ int isvalidopen(char *entry, char*player)
 	char *letters = "abcdefgh";
 	if (strchr(letters, entry[0]) == NULL  && entry[0] != 'q' && entry[0] != 'Q')
 	{
-		return 1;
+		printf("ERROR: please enter a letter between a-h.\n");
+        return 1;
 	}
+    if(entry[1]== 48 || entry[1] == 57) //checks to see if the second entry is 0 or 9 -- both are invalid.
+    {
+        printf("ERROR: please enter a number between 1-9.\n");
+        return 1;
+    }
 	if (strlen(entry)>2)
 	{
+        printf("ERROR: please enter only one letter and one number.\n");
 		return 1;
 	}
 	if (board[8-m][d-'a'].color != player[0] && entry[0] != 'q' && entry[0] != 'Q')
 	{
+        printf("ERROR: please move your piece, not your opponents.\n");
 		return 1;
 	}
 	return 0;
@@ -217,14 +223,17 @@ int isvalidmove(char *start, char *end, char*player)
 	char *letters = "abcdefgh";
 	if (strchr(letters, end[0]) == NULL  && end[0] != 'q' && end[0] != 'Q')
 	{
+        printf("ERROR: please enter a letter between a-h.\n");
 		return 1;
 	}
 	if(end[1]== 48 || end[1] == 57) //checks to see if the second entry is 0 or 9 -- both are invalid.
 	{
+        printf("ERROR: please enter a number between 1-9.\n");
 		return 1;
 	}
 	if (strlen(end)>2)
 	{
+        printf("ERROR: please enter only one letter and one number.\n");
 		return 1;
 	}
 	if(board[8-m][d-'a'].piece == 'P') //checks pawn moves.
@@ -237,7 +246,6 @@ int isvalidmove(char *start, char *end, char*player)
 	{	
 		int ret;
 		ret = legalrook(start, end,player);
-        printf("this is the value of ret: %d\n", ret);
 		return ret;
 	}
 	if(board[8-m][d-'a'].piece == 'N') //checks knights moves.
@@ -297,7 +305,7 @@ void makemove(move v)
 
 // functions that check to see if the move is legal for that piece.
 
-//check for the pawn
+//check for the pawn -- DONE
 int legalpawn (char *start, char *end, char*player) {
     int a = 0;
     char d = start[0];
@@ -315,27 +323,33 @@ int legalpawn (char *start, char *end, char*player) {
 //if its the white players turn....
     if (p == 1) {
         if (n < m) { // checks to see if the move is going backwards, returns an error.
+            printf("ERROR: Pawns cannot move backwards.\n");
             a = 1;
         }
         if (d == e){ //makes sure the pawn doesn't move into the space in front of it if there is a piece there.
             if(board[8 - n][e - 'a'].color != 0){
+                printf("ERROR: Another piece is already in that spot.\n");
                 a = 1;
             }
         }
         if (abs(n - m) > 1) { //if the move is two spaces, the pawn has to be in the opening position
             if (m != 2) {
+                printf("ERROR: Can only move two spaces on opening move.\n");
                 a = 1;
             }
             if (abs(n-m) >2){
+                printf("ERROR: Can only move one spaces.\n");
                 a = 1;
             }
         }
         if (d != e) { // checks to see if moving diagonally is a valid move.
             if (abs(e - d) != 1) {
+                printf("ERROR: Can only move diagonally when taking an opponent's piece.\n");
                 a = 1;
             }
             if(m == n){
                 a = 1;
+                printf("ERROR: Pawns cannot move sideways.\n");
             }
             else {
                 if (board[8 - n][e - 'a'].color != 0) {
@@ -343,10 +357,12 @@ int legalpawn (char *start, char *end, char*player) {
                         printf("%s took %c-%c!!!\n", player, board[8 - n][e - 'a'].color, board[8 - n][e - 'a'].piece); //prints what piece was taken if one was taken
                     }
                     if (board[8 - n][e - 'a'].color == 'w') {
+                        printf("ERROR: Pawns cannot capture it's own piece.\n");
                         a = 1;
                     }
                 }
                 else{
+                    printf("ERROR: Can only move diagonally when taking an opponent's piece.\n");
                     a = 1;
                 }
             }
@@ -355,26 +371,32 @@ int legalpawn (char *start, char *end, char*player) {
     //if its the black players turn...
     if (p == 2) {
         if (n > m) { // if the move is going backwards, its an error.
+            printf("ERROR: Pawns cannot move backwards.\n");
             a = 1;
         }
         if (d == e){ //makes sure the pawn doesn't move into the space in front of it if there is a piece there.
             if(board[8 - n][e - 'a'].color != 0){
+                printf("ERROR: Another piece is already in that spot.\n");
                 a = 1;
             }
         }
         if (abs(n - m) > 1) { //if the move is two spaces, the pawn has to be in the opening position.
             if (m != 7) {
+                printf("ERROR: Can only move two spaces on opening move.\n");
                 a = 1;
             }
             if(abs(n-m)>2){
+                printf("ERROR: Can only move one spaces.\n");
                 a =1;
             }
         }
         if (d != e) { // checks to see if moving diagonally is a valid move.
-            if (abs(e - d) > 1) {
+            if (abs(e - d) != 1) {
+                printf("ERROR: Can only move diagonally when taking an opponent's piece.\n");
                 a = 1;
             }
             if(m == n){
+                printf("ERROR: Pawns cannot move sideways.\n");
                 a = 1;
             }
             else {
@@ -383,10 +405,12 @@ int legalpawn (char *start, char *end, char*player) {
                         printf("%s took %c-%c!!!\n", player, board[8 - n][e - 'a'].color, board[8 - n][e - 'a'].piece); //prints what piece was taken if one was taken
                     }
                     if (board[8 - n][e - 'a'].color == 'b') {
+                        printf("ERROR: Pawns cannot capture it's own piece.\n");
                         a = 1;
                     }
                 }
                 else{
+                    printf("ERROR: Can only move diagonally when taking an opponent's piece.\n");
                     a = 1;
                 }
             }
@@ -398,7 +422,7 @@ int legalpawn (char *start, char *end, char*player) {
     return a;
 }
 
-//check for the rook
+//check for the rook - DONEish.
 int legalrook (char *start, char *end, char*player)
 {
     int a = 0;
@@ -406,47 +430,79 @@ int legalrook (char *start, char *end, char*player)
     int m = start[1];
     char e = end[0];
     int n = end[1];
-    int p;
-    if (c % 2 == 0)  // evaluates to see who's move it is.
-    {
-        p = 1; //player is white tokens
-    }
-    else {
-        p = 2; //player is black tokens
-    }
     if((d != e) && (m != n)){ //makes sure the move is only horizontal or vertical
+        printf("ERROR: can only move horizontally or vertically.\n");
         a = 1;
     }
-    if(d == e){
-        int q = m-48;
-        if(m > n) {
-            for (; q < m - n;) {
+    if((d==e) && (m==n)){
+        printf("ERROR: cant pick the space you are already on.\n");
+        a = 1;
+    }
+    if(d == e) { // makes sure there are no other pieces in the way vertically.
+        int q = m - 48;
+        if (m > n) {
+            for (; q > n-47;) {
                 q--;
+                if (board[8-q][d-'a'].piece != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    a = 1;
+                    break;
+                }
 
-                if (board[q][e - 'a'].color != 0) {
-                    a = 1;
-                }
             }
         }
-        if(n > m ){
-            for (;q < n-m ;) {
-                printf("made it here\n");
+        if (n > m) {
+            for (; q < n-m;) {
                 q++;
-                if(board[q][e - 'a'].color != 0) {
+                if (board[8-q][d-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
                     a = 1;
+                    break;
                 }
             }
         }
+    }
+    if( m == n) { // makes sure there are no pieces in the way horizontally.
+        char q = d;
+        if (d > e) {
+            for (; q > e+1;) {
+                q--;
+                if (board[56-m][q-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    printf("THis is Q%d",q);
+                    a = 1;
+                    break;
+                }
+            }
+        }
+        if (e > d) {
+            for (; q-'a' < e-d;) {
+                q++;
+                if (board[56-m][q-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    a = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (board[56-n][e-'a'].color == player[0]){
+        printf("ERROR: cant take your own piece.\n");
+        a = 1;
     }
 
 
     if(a == 0 ){
         printf("%s moved a ROOK to %c-%d\n",player,e,n-48);
     }
+    else{ // need to figure out the conditional.
+        printf("%s took %c-%c!!!\n", player, board[8 - n][e - 'a'].color, board[8 - n][e - 'a'].piece); //prints what piece was taken.
+    }
 	return a;
 }
 
-//check for the knight
+//check for the knight -- DONE
 int legalknight (char *start, char *end, char*player)
 {
 	int a = 0;
@@ -457,15 +513,25 @@ int legalknight (char *start, char *end, char*player)
 
 	if((abs(n-m)==2 && abs(e-d) == 1) || (abs(n-m)==1 && abs(e-d)== 2))
 	{	
-		if(board[48-n][e-'a'].color == 0)
+		if(board[56-n][e-'a'].color == 0)
 		{		
-			printf("%s moved a KNIGHT to %c-%d\n",player, e,n);
+			printf("%s moved a KNIGHT to %c-%d\n",player, e,n-48);
 		}
 	}
 	else 
 	{
+        printf("ERROR: Knight can only move one space up two spaces over or two spaces up one space over.\n");
 		a = 1;
 	}
+    if(board[56-n][e-'a'].color != 0){
+        if(board[56-n][e-'a'].color == player[0]){
+            printf("ERROR: Knight can take it's own piece.\n");
+            a = 1;
+        }
+        else{
+            printf("%s took %c-%c!!!\n", player, board[56-n][e - 'a'].color, board[56-n][e - 'a'].piece);
+        }
+    }
 	return a;
 }
 
@@ -496,33 +562,90 @@ int legalqueen (char *start, char *end, char*player)
 	int m = start[1]-48;
 	char e = end[0];
 	int n = end[1]-48;
-	if(d != e)
-	{
-		a = 1;
-	}
-	else 
-	{		
-		printf("%s moved a QUEEN to %c-%d\n",player,e,n);
-	}
+
+
+    //checks to make sure not moving on the space the piece is already on.
+    if((d==e) && (m==n)){
+        printf("ERROR: cant pick the space you are already on.\n");
+        a = 1;
+    }
+    //checks to make sure there are no pieces horizontally or vertically in the way.
+
+    if(d == e) { // makes sure there are no other pieces in the way vertically.
+        int q = m - 48;
+        if (m > n) {
+            for (; q > n-47;) {
+                q--;
+                if (board[8-q][d-'a'].piece != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    a = 1;
+                    break;
+                }
+
+            }
+        }
+        if (n > m) {
+            for (; q < n-m;) {
+                q++;
+                if (board[8-q][d-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    a = 1;
+                    break;
+                }
+            }
+        }
+    }
+    if( m == n) { // makes sure there are no other pieces in the way horizontally.
+        char q = d;
+        if (d > e) {
+            for (; q > e+1;) {
+                q--;
+                if (board[56-m][q-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    printf("THis is Q%d",q);
+                    a = 1;
+                    break;
+                }
+            }
+        }
+        if (e > d) {
+            for (; q-'a' < e-d;) {
+                q++;
+                if (board[56-m][q-'a'].color != 0) {
+                    printf("ERROR: cant move if pieces are along the path on.\n");
+                    a = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+
 	return a;
 }
 
-//check for the king
+//check for the king DONE
 int legalking (char *start, char *end, char*player)
 {
 	int a = 0;
 	char d = start[0];
-	int m = start[1]-48;
+	int m = start[1];
 	char e = end[0];
-	int n = end[1]-48;
-	if(d != e)
-	{
-		a = 1;
-	}
-	else 
-	{		
-		printf("%s moved a KING to %c-%d\n",player, e,n);
-	}
+	int n = end[1];
+	if(abs(d-e)!= 1 && abs(m-n)!=1){ //setting it so the king can only move one space -- still have to make it so it can't put itself into check and can castle
+        printf("ERROR: King can only move one space.\n");
+        a = 1;
+    }
+    if(board[56-n][e-'a'].color != 0){
+        if(board[56-n][e-'a'].color == player[0]){ //only allows for the king to take opponent's piece and not it's own.
+            printf("ERROR: Knight can take it's own piece.\n");
+            a = 1;
+        }
+        else{
+            printf("%s took %c-%c!!!\n", player, board[56-n][e - 'a'].color, board[56-n][e - 'a'].piece);
+        }
+    }
+
 	return a;
 }
 
