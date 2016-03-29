@@ -407,7 +407,7 @@ int legalpawn (char *start, char *end, char*player) {
     return a;
 }
 
-//check for the rook - DONEish.
+//check for the rook
 int legalrook (char *start, char *end, char*player)
 {
     int a = 0;
@@ -483,7 +483,7 @@ int legalrook (char *start, char *end, char*player)
 	return a;
 }
 
-//check for the knight -- DONE
+//check for the knight 
 int legalknight (char *start, char *end, char*player)
 {
 	int a = 0;
@@ -538,33 +538,53 @@ int legalbishop (char *start, char *end, char*player)
         a = 1;
     }
 
-    //check to see if there are any pieces in the way.
-    if((x>x1) && (y>y1)){
-        for(i=1;(x-i)>x1;i++){
-            if(board[(56-y)-i][(x-'a')-i].color !=0){
+    // if start is bigger letter and number (eg. h-7 to d-3) -- x1=x-i y1=y-i.
+    if((x>x1)&&(y>y1)){
+        for(i=1;i<y-y1;i++){
+            if(board[56-(y-i)][(x-i)-'a'].color !=0){
+                printf("ERROR: cant move if pieces are along the path on.\n");
                 a = 1;
+                break;
             }
         }
     }
-    if((x>x1) && (y<y1)){
-        for(i=1;(x-i)>x1;i++){
-            if(board[(56-y)+i][(x-'a')+i].color !=0){
+// if start is bigger letter but smaller number(eg. h-1 to d-5) -- x1=x-i, y1=y+i.
+    if((x>x1)&&(y<y1)){
+        for(i=1;i<y1-y;i++){
+            if(board[56-(y+i)][(x-i)-'a'].color !=0){
+                printf("ERROR: cant move if pieces are along the path on.\n");
                 a = 1;
+                break;
             }
         }
     }
-    if((x<x1)&&(y<y1)) {
-        for(i=1;(i+x)<x1;i++) {
-            if(board[(56-y)+i][(x-'a')+i].color !=0){
+
+//if start is less than end letter and number(eg. a-1 to e-5) -- x1=x+i, y1=y+i.
+    if((x<x1)&&(y<y1)){
+        for(i=1;i<y1-y;i++){
+            if(board[56-(y+i)][(x+i)-'a'].color !=0){
+                printf("ERROR: cant move if pieces are along the path on.\n");
                 a = 1;
+                break;
             }
         }
     }
+
+
+//if start is less than letter but bigger number (eg. a-7 to e-3) -- x1=x+i, y1= y-i.
     if((x<x1)&&(y>y1)){
-        for(i=1;(y-i)>y1;i++){
-            if(board[(56-y)-i][(x-'a')+i].color !=0){
+        for(i=1;i<y-y1;i++){
+            if(board[56-(y-i)][(x+i)-'a'].color !=0){
+                printf("ERROR: cant move if pieces are along the path on.\n");
                 a = 1;
+                break;
             }
+        }
+    }
+    if(board[56-y1][x1 -'a'].color != 0){
+        if(board[56-y1][x1-'a'].color == player[0]){
+            printf("ERROR: Can not take your own piece.\n");
+            a = 1;
         }
     }
 
