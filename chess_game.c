@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 
 
@@ -16,7 +17,7 @@ extern char black;
 
 int main()
 {
-	char *player = "white"; 
+	char *player = "WHITE";
 	move v;
 	initboard(board);
 	printboard(board);
