@@ -254,37 +254,37 @@ int isvalidmove(char*player) {
     //checks pawn moves.
 	else if(board[8-m][d-'a'].piece == 'P') {
 		int ret;
-		ret = legalpawn(start, end, player);
+		ret = legalpawn(player);
 		return ret;
 	}
     //checks rooks moves.
 	else if(board[8-m][d-'a'].piece == 'R') {
 		int ret;
-		ret = legalrook(start, end,player);
+		ret = legalrook(player);
 		return ret;
 	}
     //checks knights moves.
 	else if(board[8-m][d-'a'].piece == 'N') {
 		int ret;
-		ret = legalknight(start, end, player);
+		ret = legalknight(player);
 		return ret;
 	}
     //checks bishops moves.
 	else if(board[8-m][d-'a'].piece == 'B') {
 		int ret;
-		ret = legalbishop(start, end, player);
+		ret = legalbishop(player);
 		return ret;
 	}
     //checks queens moves.
 	else if(board[8-m][d-'a'].piece == 'Q') {
 		int ret;
-		ret = legalqueen(start, end, player);
+		ret = legalqueen(player);
 		return ret;
 	}
     //checks kings moves.
 	else if(board[8-m][d-'a'].piece == 'K') {
 		int ret;
-		ret = legalking(start, end, player);
+		ret = legalking(player);
 		return ret;
 	}
 	return 0;
@@ -318,7 +318,7 @@ void makemove(move v)
 }
 
 // functions that check to see if the move is legal for that piece.
-int legalpawn (char *start, char *end, char*player) {
+int legalpawn (char*player) {
     int a = 0;
     char d = start[0];
     int m = start[1] - 48;
@@ -436,7 +436,7 @@ int legalpawn (char *start, char *end, char*player) {
 
 
 //check for the rook
-int legalrook (char *start, char *end, char*player)
+int legalrook (char*player)
 {
     int a = 0;
     char d = start[0];
@@ -512,7 +512,7 @@ int legalrook (char *start, char *end, char*player)
 }
 
 //check for the knight
-int legalknight (char *start, char *end, char*player)
+int legalknight (char*player)
 {
 	int a = 0;
 	char d = start[0];
@@ -545,7 +545,7 @@ int legalknight (char *start, char *end, char*player)
 }
 
 //check for the bishop
-int legalbishop (char *start, char *end, char*player)
+int legalbishop (char*player)
 {
 	int a = 0;
 	char x = start[0];
@@ -622,7 +622,7 @@ int legalbishop (char *start, char *end, char*player)
 }
 
 //check for the queen
-int legalqueen (char *start, char *end, char*player)
+int legalqueen (char*player)
 {
 	int a = 0;
 	char d = start[0];
@@ -632,38 +632,37 @@ int legalqueen (char *start, char *end, char*player)
 
     //if move is horizontally or vertically, checks to make sure move it legal.
     if((d==e) || (m==n)){
-        a=legalrook(start, end, player);
+        a=legalrook(player);
     }
     //if move it diagnoal, checks to make sure move is legal.
     if((d != e) && (m != n)){
-        a=legalbishop(start, end, player);
+        a=legalbishop(player);
     }
 
 	return a;
 }
 
 //check for the king
-int legalking (char *start, char *end, char*player)
+int legalking (char*player)
 {
 	int a = 0;
 	char d = start[0];
 	int m = start[1];
 	char e = end[0];
 	int n = end[1];
-	if(abs(d-e)!= 1 && abs(m-n)!=1){ //setting it so the king can only move one space -- still have to make it so it can't put itself into check and can castle
-        printf("ERROR: King can only move one space.\n");
-        a = 1;
+	if(abs(m-n)!=1 && abs(d-e)!=1 ) { //setting it so the king can castle
+            printf("ERROR: King can only move one space.\n");
+            a = 1;
     }
-    else if(board[56-n][e-'a'].color != 0){
+    else if (board[56-n][e-'a'].color != 0){
         if(board[56-n][e-'a'].color == tolower(player[0])){ //only allows for the king to take opponent's piece and not it's own.
-            printf("ERROR: Knight can take it's own piece.\n");
+            printf("ERROR: King can take it's own piece.\n");
             a = 1;
         }
         else{
             printf("%s took %c-%c!!!\n", player, board[56-n][e - 'a'].color, board[56-n][e - 'a'].piece);
         }
     }
-
 	return a;
 }
 
@@ -697,5 +696,46 @@ int check(char*player){
     return a;
 }
 
+//int castling{
+//    int a = 0;
+//    char d = start[0];
+//    int m = start[1];
+//    char e = end[0];
+//    int n = end[1];
+//    if (abs(d - e) > 1) {
+//        if (((e == 'a') && (board[56 - n][(e - 1) - 'a'].color == 0) && (board[56 - n][(e - 2) - 'a'].color == 0) &&
+//             (board[56 - n][(e - 3) - 'a'].color == 0)) ||
+//            ((e == 'h') && (board[56 - n][(e + 1) - 'a'].color == 0) &&
+//             (board[56 - n][(e + 2) - 'a'].color == 0))) {
+//            if(e == 'a'){
+//                if ((board[56 - n][0].color == tolower(player[0])) &&
+//                    (board[56 - n][0].piece == 'R')) {
+//                    board[56 - n][0].color = 0; //sets rook spot to empty
+//                    board[56 - n][0].piece = 0;
+//                    board[56 - n][3].color = (char) tolower(player[0]);//sets new spot where rook goes
+//                    board[56 - n][3].piece = 'R';
+//                    board[56 - n][2].color = (char) tolower(player[0]);
+//                    board[56 - n][2].piece = 'K';
+//                }
+//            }
+//            if(e == 'h') {
+//                if ((board[56 - n][0].color == tolower(player[0])) &&
+//                    (board[56 - n][0].piece == 'R')) {
+//                    board[56 - n][0].color = 0; //sets rook spot to empty
+//                    board[56 - n][7].color = 0; //sets rook spot to empty
+//                    board[56 - n][7].piece = 0;
+//                    board[56 - n][5].color = (char) tolower(player[0]);//sets new spot where rook goes
+//                    board[56 - n][5].piece = 'R';
+//                    board[56 - n][6].color = (char) tolower(player[0]);
+//                    board[56 - n][6].piece = 'K';
+//                }
+//            }
+//
+//        }else {
+//            printf("ERROR: Not a legal castle.\n");
+//            a = 1;
+//        }
+//    }
+//};
 
 
