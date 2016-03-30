@@ -11,10 +11,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b48a40d-4314-4f3a-acc4-aa2d56e3bdf8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chess.c" afterPath="$PROJECT_DIR$/chess.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chess.h" afterPath="$PROJECT_DIR$/chess.h" />
-    </list>
+    <list default="true" id="8b48a40d-4314-4f3a-acc4-aa2d56e3bdf8" name="Default" comment="" />
     <ignored path="chess.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,8 +46,8 @@
       <file leaf-file-name="chess.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chess.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10009">
-              <caret line="15" column="65" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
+            <state relative-caret-position="116">
+              <caret line="690" column="5" selection-start-line="690" selection-start-column="5" selection-end-line="690" selection-end-column="5" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -504,8 +501,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chess.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10009">
-          <caret line="15" column="65" selection-start-line="15" selection-start-column="65" selection-end-line="15" selection-end-column="65" />
+        <state relative-caret-position="116">
+          <caret line="690" column="5" selection-start-line="690" selection-start-column="5" selection-end-line="690" selection-end-column="5" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
