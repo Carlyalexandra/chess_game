@@ -130,99 +130,127 @@ void printletters()
 }
 
 //gets the player's move and returns the move node with all the information
+
+
+//gets the player's move and returns the move node with all the information
 move getmove(char* player)
 {
-	move a;
-	printf("It's your turn, %s, what piece would you like to move?\nEnter the letter followed by the number. Enter Q to forfeit:\n", player);
-	scanf("%s", start);
-	while (isvalidopen(player) == 1)
-	{
+    check(player);
+    move a;
+    printf("It's your turn, %s, what piece would you like to move?\nEnter the letter followed by the number. Enter Q to forfeit:\n", player);
+    scanf("%s", start);
+    while (isvalidopen(player) == 1)
+    {
         printf("It's your turn, %s, what piece would you like to move?\nEnter the letter followed by the number. Enter Q to forfeit:\n", player);
         scanf("%s", start);
-	}
-	if((strcmp(start, "q") == 0) || (strcmp(start, "Q") == 0)) {
-		printf("looks like you quit\n");
-		exit(0);
-	}
+    }
+    if((strcmp(start, "q") == 0) || (strcmp(start, "Q") == 0)) {
+        printf("looks like you quit\n");
+        exit(0);
+    }
     printf("Where you would like to move to? Enter the letter followed by the number.\nEnter Q to forfeit or R to selected a different piece:\n");
- 	scanf("%s", end);
-	while (isvalidmove(player) == 1)
-	{
-		printf("Where you would like to move to? Enter the letter followed by the number.\nEnter Q to forfeit or R to selected a different piece:\n");
-        scanf("%s", end);
-	}
-	if((strcmp(end, "q") == 0) || (strcmp(end, "Q") == 0)) {
-		printf("looks like you quit\n");
-		exit(0);
-	}
+    scanf("%s", end);
 
- 	else {
+    while((strcmp(end, "r") == 0) || (strcmp(end, "R") == 0)){
+        swappiece(player);
+    }
+    while (isvalidmove(player) == 1)
+    {
+        printf("Where you would like to move to? Enter the letter followed by the number.\nEnter Q to forfeit or R to selected a different piece:\n");
+        scanf("%s", end);
+        while((strcmp(end, "r") == 0) || (strcmp(end, "R") == 0)){
+            swappiece(player);
+        }
+    }
+    if((strcmp(end, "q") == 0) || (strcmp(end, "Q") == 0)) {
+        printf("looks like you quit\n");
+        exit(0);
+    }
+    else {
         a.froml = start[0];
         a.fromi = start[1]-48;
- 		a.tol = end[0];
- 		a.toi = end[1]-48;
- 	}
-
- 	return a;
+        a.tol = end[0];
+        a.toi = end[1]-48;
+    }
+    return a;
 }
 
 
 //checks to see if entry for the piece to move was valid and if the selected piece is that player's piece
 int isvalidopen(char*player)
-{	
-	char d = start[0];
-	int m = start[1]-48;
-	char *letters = "abcdefgh";
+{
+    char d = start[0];
+    int m = start[1]-48;
+    char *letters = "abcdefgh";
     if((strcmp(start, "q") == 0) || (strcmp(start, "Q") == 0)) {
         return 0;
     }
-	else if (strchr(letters, start[0]) == NULL  && start[0] != 'q' && start[0] != 'Q') {
-		printf("ERROR: please enter a letter between a-h.\n");
+    else if (strchr(letters, start[0]) == NULL  && start[0] != 'q' && start[0] != 'Q') {
+        printf("ERROR: please enter a letter between a-h.\n");
         return 1;
-	}
-    //checks to see if the second entry is 0 or 9 -- both are invalid.
+    }
+        //checks to see if the second entry is 0 or 9 -- both are invalid.
     else if(start[1]== 48 || start[1] == 57) {
         printf("ERROR: please enter a number between 1-9.\n");
         return 1;
     }
-	else if (strlen(start)>2) {
+    else if (strlen(start)>2) {
         printf("ERROR: please enter only one letter and one number.\n");
-		return 1;
-	}
-	else if (board[8-m][d-'a'].color != tolower(player[0]) && start[0] != 'q' && start[0] != 'Q'){
+        return 1;
+    }
+    else if (board[8-m][d-'a'].color != tolower(player[0]) && start[0] != 'q' && start[0] != 'Q'){
         printf("ERROR: please move your own piece.\n");
-		return 1;
-	}
-	return 0;
+        return 1;
+    }
+    return 0;
+}
+//allows a player to swap out the piece they have chosen.
+void swappiece(char*player)
+{
+    if((strcmp(end, "r") == 0) || (strcmp(end, "R") == 0)) {
+        printf("What piece would you like to move? Enter letter then number\n");
+        scanf("%s", start);
+        while (isvalidopen(player) == 1)
+        {
+            printf("It's your turn, %s, what piece would you like to move?\nEnter the letter followed by the number. Enter Q to forfeit:\n", player);
+            scanf("%s", start);
+        }
+        if((strcmp(start, "q") == 0) || (strcmp(start, "Q") == 0)) {
+            printf("looks like you quit\n");
+            exit(0);
+        }
+        printf("Where you would like to move to? Enter the letter followed by the number.\nEnter Q to forfeit or R to selected a different piece:\n");
+        scanf("%s", end);
+    }
 }
 
 //checks to see if the move is valid... needs a lot more rules.
-int isvalidmove(char*player)
-{	
-	char d = start[0];
-	int m = start[1]-48;
+int isvalidmove(char*player) {
+    char d = start[0];
+    int m = start[1] - 48;
     char e = end[0];
-    int n = end[1]-48;
-	char *letters = "abcdefgh";
-    if((strcmp(end, "q") == 0) || (strcmp(end, "Q") == 0)) {
+    int n = end[1] - 48;
+    char *letters = "abcdefgh";
+    if ((strcmp(end, "q") == 0) || (strcmp(end, "Q") == 0)) {
         return 0;
     }
-	else if (strchr(letters, end[0]) == NULL  && end[0] != 'q' && end[0] != 'Q') {
+    else if (strchr(letters, end[0]) == NULL && end[0] != 'q' && end[0] != 'Q') {
         printf("ERROR: please enter a letter between a-h.\n");
-		return 1;
-	}
-	else if(end[1]== 48 || end[1] == 57) {
+        return 1;
+    }
+    else if (end[1] == 48 || end[1] == 57) {
         printf("ERROR: please enter a number between 1-9.\n");
-		return 1;
-	}
-	else if (strlen(end)>2) {
+        return 1;
+    }
+    else if (strlen(end) > 2) {
         printf("ERROR: please enter only one letter and one number.\n");
-		return 1;
-	}
-    else if((d==e) && (m==n)){
+        return 1;
+    }
+    else if ((d == e) && (m == n)) {
         printf("ERROR: cant pick the space you are already on.\n");
         return 1;
     }
+
     //checks pawn moves.
 	else if(board[8-m][d-'a'].piece == 'P') {
 		int ret;
@@ -570,7 +598,6 @@ int legalbishop (char *start, char *end, char*player)
         }
     }
 
-
 //if start is less than letter but bigger number (eg. a-7 to e-3) -- x1=x+i, y1= y-i.
     if((x<x1)&&(y>y1)){
         for(i=1;i<y-y1;i++){
@@ -615,7 +642,7 @@ int legalqueen (char *start, char *end, char*player)
 	return a;
 }
 
-//check for the king DONE
+//check for the king
 int legalking (char *start, char *end, char*player)
 {
 	int a = 0;
@@ -640,12 +667,35 @@ int legalking (char *start, char *end, char*player)
 	return a;
 }
 
-//int check(char*player){
-//    int a = 0;
-//    if (king is in check then the move has to used){
-//        a = 1;
-//    }
-//
-//    return a;
-//}
+int check(char*player){
+    int a = 0;
+    int i,j;
+    int e;
+    int n;
+    for(i=0;i<8;i++){
+        for(j=0;j<8;j++){
+            if(board[i][j].piece =='K' && board[i][j].color == tolower(player[0])){
+                e = j; //j+'a'
+                n = i; //8-i
+                break;
+            }
+        }
+    }
+    printf("%s's king is %c%d\n",player,e+'a',8-n);
+    int p;
+    // evaluates to see who's move it is.
+    if (c % 2 == 0) {
+        p = 1; //player is white tokens
+    }
+    else {
+        p = 2; //player is black tokens
+    }
+//if its the white players turn....
+    if (p == 1) {
+
+    }
+    return a;
+}
+
+
 

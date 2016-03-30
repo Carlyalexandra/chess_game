@@ -34,5 +34,8 @@ int legalbishop (char *start, char *end, char*player);
 int legalqueen (char *start, char *end, char*player);
 int legalking (char *start, char *end, char*player);
 void makemove(move v);
+void swappiece(char*player);
+int check(char*player);
+
 
 #endif
