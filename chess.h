@@ -36,6 +36,7 @@ int legalking (char*player);
 void makemove(move v);
 void swappiece(char*player);
 int check(char*player);
+int castling(char*player);
 
 
 #endif

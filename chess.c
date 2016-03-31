@@ -10,81 +10,82 @@ piece board[8][8];
 int c = 0; //use this as counter used for displaying who's turn it is -- white or black.
 char start[6];
 char end[6];
-
+int k = 0; //use this check for castling.
+int z; //use this for check.
 
 
 // initiates the board and fills in all the nodes into the array.
 void initboard(piece board[8][8])
 {
-	piece wPawn;
-	wPawn.color = 'w';
-	wPawn.piece = 'P';
-	piece bPawn;
-	bPawn.color = 'b';
-	bPawn.piece = 'P';
-	
-	piece wRook;
-	wRook.color = 'w';
-	wRook.piece = 'R';
-	piece bRook;
-	bRook.color = 'b';
-	bRook.piece = 'R';
-	
-	piece wkNight;
-	wkNight.color = 'w';
-	wkNight.piece = 'N';
-	piece bkNight;
-	bkNight.color = 'b';
-	bkNight.piece = 'N';
+    piece wPawn;
+    wPawn.color = 'w';
+    wPawn.piece = 'P';
+    piece bPawn;
+    bPawn.color = 'b';
+    bPawn.piece = 'P';
 
-	piece wBishop;
-	wBishop.color = 'w';
-	wBishop.piece = 'B';
-	piece bBishop;
-	bBishop.color = 'b';
-	bBishop.piece = 'B';
-	
-	piece wQueen;
-	wQueen.color = 'w';
-	wQueen.piece = 'Q';
-	piece bQueen;
-	bQueen.color = 'b';
-	bQueen.piece = 'Q';
-	
-	piece wKing;
-	wKing.color = 'w';
-	wKing.piece = 'K';
-	piece bKing;
-	bKing.color = 'b';
-	bKing.piece = 'K';
+    piece wRook;
+    wRook.color = 'w';
+    wRook.piece = 'R';
+    piece bRook;
+    bRook.color = 'b';
+    bRook.piece = 'R';
 
-	int j;
-	for(j=0;j<8;j++)
-	{
-		board[6][j] = wPawn;	
-		board[1][j] = bPawn;	
-	}
-	
-	board[0][0] = bRook;
-	board[0][7] = bRook;
-	board[7][0] = wRook;
-	board[7][7] = wRook;
+    piece wkNight;
+    wkNight.color = 'w';
+    wkNight.piece = 'N';
+    piece bkNight;
+    bkNight.color = 'b';
+    bkNight.piece = 'N';
 
-	board[0][1] = bkNight;
-	board[0][6] = bkNight;
-	board[7][1] = wkNight;
-	board[7][6] = wkNight;
+    piece wBishop;
+    wBishop.color = 'w';
+    wBishop.piece = 'B';
+    piece bBishop;
+    bBishop.color = 'b';
+    bBishop.piece = 'B';
 
-	board[0][2] = bBishop;
-	board[0][5] = bBishop;
-	board[7][2] = wBishop;
-	board[7][5] = wBishop;
+    piece wQueen;
+    wQueen.color = 'w';
+    wQueen.piece = 'Q';
+    piece bQueen;
+    bQueen.color = 'b';
+    bQueen.piece = 'Q';
 
-	board[0][3] = bQueen;
-	board[7][3] = wQueen;
+    piece wKing;
+    wKing.color = 'w';
+    wKing.piece = 'K';
+    piece bKing;
+    bKing.color = 'b';
+    bKing.piece = 'K';
 
-	board[0][4] = bKing;
-	board[7][4] = wKing;
+    int j;
+    for(j=0;j<8;j++)
+    {
+        board[6][j] = wPawn;
+        board[1][j] = bPawn;
+    }
+
+    board[0][0] = bRook;
+    board[0][7] = bRook;
+    board[7][0] = wRook;
+    board[7][7] = wRook;
+
+    board[0][1] = bkNight;
+    board[0][6] = bkNight;
+    board[7][1] = wkNight;
+    board[7][6] = wkNight;
+
+    board[0][2] = bBishop;
+    board[0][5] = bBishop;
+    board[7][2] = wBishop;
+    board[7][5] = wBishop;
+
+    board[0][3] = bQueen;
+    board[7][3] = wQueen;
+
+    board[0][4] = bKing;
+    board[7][4] = wKing;
 }
 
 
@@ -92,36 +93,36 @@ void initboard(piece board[8][8])
 
 void printboard(piece board[8][8])
 {
-	printletters();
-	printf("\n");
-	int i;
-	int j;
-	int k = 8;
-	for(i=0;i<8;i++) {
-		printf(" %d  ",k);
-		for(j=0;j<8;j++)
-			if(board[i][j].color != 0) {
-				
-				printf(" %c-%c", board[i][j].color,board[i][j].piece);
-				printf("    ");
-			}
-			else {
-				printf("  - ");
-				printf("    ");
-			}
-		printf(" %d ",k);
-		printf("\n");
-		printf("\n");
-		k--;		
-	}
-	printletters();
+    printletters();
+    printf("\n");
+    int i;
+    int j;
+    int k = 8;
+    for(i=0;i<8;i++) {
+        printf(" %d  ",k);
+        for(j=0;j<8;j++)
+            if(board[i][j].color != 0) {
+
+                printf(" %c-%c", board[i][j].color,board[i][j].piece);
+                printf("    ");
+            }
+            else {
+                printf("  - ");
+                printf("    ");
+            }
+        printf(" %d ",k);
+        printf("\n");
+        printf("\n");
+        k--;
+    }
+    printletters();
 }
 
 //adds the boarder of letters to the top and the bottom of the board as a guide
 void printletters()
 {
-	int i;
-	printf("   ");
+    int i;
+    printf("   ");
     for(i=0;i<8;i++)
     {
         printf("   %c    ",'a'+i);
@@ -130,12 +131,9 @@ void printletters()
 }
 
 //gets the player's move and returns the move node with all the information
-
-
-//gets the player's move and returns the move node with all the information
 move getmove(char* player)
 {
-    check(player);
+    z= check(player);
     move a;
     printf("It's your turn, %s, what piece would you like to move?\nEnter the letter followed by the number. Enter Q to forfeit:\n", player);
     scanf("%s", start);
@@ -250,70 +248,123 @@ int isvalidmove(char*player) {
         printf("ERROR: cant pick the space you are already on.\n");
         return 1;
     }
-
-    //checks pawn moves.
-	else if(board[8-m][d-'a'].piece == 'P') {
-		int ret;
-		ret = legalpawn(player);
-		return ret;
-	}
-    //checks rooks moves.
-	else if(board[8-m][d-'a'].piece == 'R') {
-		int ret;
-		ret = legalrook(player);
-		return ret;
-	}
-    //checks knights moves.
-	else if(board[8-m][d-'a'].piece == 'N') {
-		int ret;
-		ret = legalknight(player);
-		return ret;
-	}
-    //checks bishops moves.
-	else if(board[8-m][d-'a'].piece == 'B') {
-		int ret;
-		ret = legalbishop(player);
-		return ret;
-	}
-    //checks queens moves.
-	else if(board[8-m][d-'a'].piece == 'Q') {
-		int ret;
-		ret = legalqueen(player);
-		return ret;
-	}
-    //checks kings moves.
-	else if(board[8-m][d-'a'].piece == 'K') {
-		int ret;
-		ret = legalking(player);
-		return ret;
-	}
-	return 0;
+        //checks pawn moves.
+    else if(board[8-m][d-'a'].piece == 'P') {
+        int ret;
+        ret = legalpawn(player);
+        return ret;
+    }
+        //checks rooks moves.
+    else if(board[8-m][d-'a'].piece == 'R') {
+        int ret;
+        ret = legalrook(player);
+        return ret;
+    }
+        //checks knights moves.
+    else if(board[8-m][d-'a'].piece == 'N') {
+        int ret;
+        ret = legalknight(player);
+        return ret;
+    }
+        //checks bishops moves.
+    else if(board[8-m][d-'a'].piece == 'B') {
+        int ret;
+        ret = legalbishop(player);
+        return ret;
+    }
+        //checks queens moves.
+    else if(board[8-m][d-'a'].piece == 'Q') {
+        int ret;
+        ret = legalqueen(player);
+        return ret;
+    }
+        //checks kings moves.
+    else if(board[8-m][d-'a'].piece == 'K') {
+        int ret;
+        k = castling(player);
+        if(k == 1){
+            ret = 0;
+        } else{
+            ret = legalking(player);
+        }
+        return ret;
+    }
+    return 0;
+}
+//checks to see if the player is castling
+int castling(char*player){
+    int a = 0;
+    char e = end[0];
+    int n = end[1];
+    if (((e == 'a') && (board[56 - n][3].color == 0) && (board[56 - n][2].color == 0) && (board[56 - n][3].color == 0))){
+        if ((board[56 - n][0].color == tolower(player[0])) && (board[56 - n][0].piece == 'R')) {
+            a = 1;
+        }
+    }
+    if ((e == 'h') && (board[56 - n][5].color == 0) && (board[56 - n][6].color == 0)){
+        if ((board[56 - n][7].color == tolower(player[0])) && (board[56 - n][7].piece == 'R')) {
+            a = 1;
+        }
+    }
+    return a;
 }
 
 //takes the move that is entered and makes the actual move on the board.
 void makemove(move v)
 {
-	char* player;
+    char* player;
+    c++; // progresses the counter to swap which player is playing
     // evaluates to see who's move it is.
-	if (c % 2 == 0) {
-		player ="BLACK";
-	}
-	else {
-		player = "WHITE";
-	}
-	char d = v.froml;
-	int m = v.fromi;
-	char e = v.tol;
-	int n = v.toi;
-	board[8-n][e-'a'].color = board[8-m][d-'a'].color;
-	board[8-n][e-'a'].piece = board[8-m][d-'a'].piece;
-	board[8-m][d-'a'].color = 0;
-	board[8-m][d-'a'].piece = 0;
-	printboard(board);
-	c++; // progresses the counter to swap which player is playing
-	move t;
-	t = getmove(player);
-	makemove(t);
+    if (c % 2 == 0) {
+        player ="WHITE";
+    }
+    else {
+        player = "BLACK";
+    }
+    char q;
+    if(player[0]=='B'){ // because the counter advances the player this set the piece to the right player.
+        q = 'w';
+    }
+    if(player[0]=='W'){
+        q = 'b';
+    }
+    char d = v.froml;
+    int m = v.fromi;
+    char e = v.tol;
+    int n = v.toi;
+    if((k == 1) && (board[8-m][d-'a'].piece == 'K')){
+        if(e == 'a'){
+            printf("Player Castled\n");
+            board[8 - n][0].color = 0; //sets rook's spot to empty
+            board[8 - n][0].piece = 0;
+            board[8 - m][4].color = 0; // sets king's spot to empty
+            board[8 - m][4].piece = 0;
+            board[8 - n][3].color = q;//sets new spot where rook goes
+            board[8 - n][3].piece = 'R';
+            board[8 - n][2].color = q;
+            board[8 - n][2].piece = 'K';
+        }
+        if(e == 'h') {
+            printf("Player Castled\n");
+            board[8 - n][7].color = 0; //sets rook spot to empty
+            board[8 - n][7].piece = 0;
+            board[8 - m][4].color = 0; // sets king's spot to empty
+            board[8 - m][4].piece = 0;
+            board[8 - n][5].color = q;//sets new spot where rook goes
+            board[8 - n][5].piece = 'R';
+            board[8 - n][6].color = q;
+            board[8 - n][6].piece = 'K';
+        }
+    } else {
+        board[8-n][e-'a'].color = board[8-m][d-'a'].color;
+        board[8-n][e-'a'].piece = board[8-m][d-'a'].piece;
+        board[8-m][d-'a'].color = 0;
+        board[8-m][d-'a'].piece = 0;
+    }
+    printboard(board);
+    move t;
+    t = getmove(player);
+    makemove(t);
 
 }
 
@@ -508,30 +559,30 @@ int legalrook (char*player)
 //    else{ // need to figure out the conditional.
 //        printf("%s took %c-%c!!!\n", player, board[8 - n][e - 'a'].color, board[8 - n][e - 'a'].piece); //prints what piece was taken.
 //    }
-	return a;
+    return a;
 }
 
 //check for the knight
 int legalknight (char*player)
 {
-	int a = 0;
-	char d = start[0];
-	int m = start[1];
-	char e = end[0];
-	int n = end[1];
+    int a = 0;
+    char d = start[0];
+    int m = start[1];
+    char e = end[0];
+    int n = end[1];
 
-	if((abs(n-m)==2 && abs(e-d) == 1) || (abs(n-m)==1 && abs(e-d)== 2))
-	{	
-		if(board[56-n][e-'a'].color == 0)
-		{		
-			printf("%s moved a KNIGHT to %c-%d\n",player, e,n-48);
-		}
-	}
-	else 
-	{
+    if((abs(n-m)==2 && abs(e-d) == 1) || (abs(n-m)==1 && abs(e-d)== 2))
+    {
+        if(board[56-n][e-'a'].color == 0)
+        {
+            printf("%s moved a KNIGHT to %c-%d\n",player, e,n-48);
+        }
+    }
+    else
+    {
         printf("ERROR: Knight can only move one space up two spaces over or two spaces up one space over.\n");
-		a = 1;
-	}
+        a = 1;
+    }
     if(board[56-n][e-'a'].color != 0){
         if(board[56-n][e-'a'].color == tolower(player[0])){
             printf("ERROR: Knight can take it's own piece.\n");
@@ -541,17 +592,17 @@ int legalknight (char*player)
 //            printf("%s took %c-%c!!!\n", player, board[56-n][e - 'a'].color, board[56-n][e - 'a'].piece);
 //        }
     }
-	return a;
+    return a;
 }
 
 //check for the bishop
 int legalbishop (char*player)
 {
-	int a = 0;
-	char x = start[0];
-	int y = start[1];
-	char x1 = end[0];
-	int y1 = end[1];
+    int a = 0;
+    char x = start[0];
+    int y = start[1];
+    char x1 = end[0];
+    int y1 = end[1];
     int i;
 
     //checks to make sure the line is diagonal.
@@ -560,7 +611,7 @@ int legalbishop (char*player)
         a = 1;
     }
 
-    //checks to make the slope of the line is \1\.
+        //checks to make the slope of the line is \1\.
     else if(abs(x-x1) != abs(y-y1)){
         printf("ERROR: must be a straight diagonal line.\n");
         a = 1;
@@ -618,17 +669,17 @@ int legalbishop (char*player)
 //    if(a == 0 ){
 //        printf("%s moved a BISHOP to %c-%d\n",player,x1,y1-48);
 //    }
-	return a;
+    return a;
 }
 
 //check for the queen
 int legalqueen (char*player)
 {
-	int a = 0;
-	char d = start[0];
-	int m = start[1];
-	char e = end[0];
-	int n = end[1];
+    int a = 0;
+    char d = start[0];
+    int m = start[1];
+    char e = end[0];
+    int n = end[1];
 
     //if move is horizontally or vertically, checks to make sure move it legal.
     if((d==e) || (m==n)){
@@ -639,20 +690,24 @@ int legalqueen (char*player)
         a=legalbishop(player);
     }
 
-	return a;
+    return a;
 }
 
 //check for the king
 int legalking (char*player)
 {
-	int a = 0;
-	char d = start[0];
-	int m = start[1];
-	char e = end[0];
-	int n = end[1];
-	if(abs(m-n)!=1 && abs(d-e)!=1 ) { //setting it so the king can castle
-            printf("ERROR: King can only move one space.\n");
+    int a = 0;
+    char d = start[0];
+    int m = start[1];
+    char e = end[0];
+    int n = end[1];
+    if(abs(m-n)!=1 && abs(d-e)!=1 ) { //setting it so the king can castle
+        if(castling(player) == 0){
+            printf("ERROR: King can only move one space or castle on the opening move.\n");
             a = 1;
+        } else{
+
+        }
     }
     else if (board[56-n][e-'a'].color != 0){
         if(board[56-n][e-'a'].color == tolower(player[0])){ //only allows for the king to take opponent's piece and not it's own.
@@ -663,79 +718,134 @@ int legalking (char*player)
             printf("%s took %c-%c!!!\n", player, board[56-n][e - 'a'].color, board[56-n][e - 'a'].piece);
         }
     }
-	return a;
+    return a;
 }
 
 int check(char*player){
     int a = 0;
     int i,j;
-    int e;
-    int n;
+    int x;
+    int y;
     for(i=0;i<8;i++){
         for(j=0;j<8;j++){
             if(board[i][j].piece =='K' && board[i][j].color == tolower(player[0])){
-                e = j; //j+'a'
-                n = i; //8-i
+                x = j; //j+'a'
+                y = i; //8-i
                 break;
             }
         }
     }
-    printf("%s's king is %c%d\n",player,e+'a',8-n);
-    int p;
-    // evaluates to see who's move it is.
-    if (c % 2 == 0) {
-        p = 1; //player is white tokens
+    //in check from a pawn
+    if(player[0] =='W') {
+        if (((board[y-1][x-1].piece == 'P') && (board[y-1][x-1].color == 'b')) ||
+            ((board[y-1][x+1].piece == 'P') && (board[y-1][x+1].color == 'b'))) {
+            printf("You're in check\n");
+            a = 1;
+        }
     }
-    else {
-        p = 2; //player is black tokens
+    if(player[0]=='B') {
+        if (((board[y+1][x-1].piece == 'P') && (board[y+1][x-1].color == 'w')) ||
+            ((board[y+1][x+1].piece == 'P') && (board[y+1][x+1].color == 'w'))) {
+            printf("You're in check\n");
+            a = 1;
+        }
     }
-//if its the white players turn....
-    if (p == 1) {
-
+    //in check from a knight
+    if(((board[y-1][x-2].piece =='R') && (board[y-1][x-2].color != tolower(player[0]))) ||
+       ((board[y-2][x-1].piece =='R') && (board[y-2][x-1].color != tolower(player[0]))) ||
+       ((board[y-1][x+2].piece =='R') && (board[y-1][x+2].color != tolower(player[0]))) ||
+       ((board[y-2][x+1].piece =='R') && (board[y-2][x+1].color != tolower(player[0]))) ||
+       ((board[y+1][x-2].piece =='R') && (board[y+1][x-1].color != tolower(player[0]))) ||
+       ((board[y+2][x-1].piece =='R') && (board[y+2][x-1].color != tolower(player[0]))) ||
+       ((board[y+1][x+2].piece =='R') && (board[y+1][x+2].color != tolower(player[0]))) ||
+       ((board[y+2][x+1].piece =='R') && (board[y+2][x+1].color != tolower(player[0])))) {
+        printf("You're in check\n");
+        a=1;
+    }
+    int s;
+    for(s=0;s<8;s++){
+        //checks for bishop or Queen.
+        if (board[y-s][x-s].color == 0){
+            if(((board[y-(s+1)][x-(s+1)].color != tolower(player[0])) && (board[y-(s+1)][x-(s+1)].piece == 'Q')) ||
+               ((board[y-(s+1)][x-(s+1)].color != tolower(player[0])) && (board[y-(s+1)][x-(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if (((board[y-s][x-s].color != tolower(player[0])) && (board[y-s][x-s].piece == 'Q')) ||
+                ((board[y-s][x-s].color != tolower(player[0])) && (board[y-s][x-s].piece == 'B'))){
+            a=1;
+        }
+        if (board[y-s][x+s].color == 0){
+            if(((board[y-(s+1)][x+(s+1)].color != tolower(player[0])) && (board[y-(s+1)][x+(s+1)].piece == 'Q')) ||
+                ((board[y-(s+1)][x+(s+1)].color != tolower(player[0])) && (board[y-(s+1)][x+(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if (((board[y-s][x+s].color != tolower(player[0])) && (board[y-s][x+s].piece == 'Q')) ||
+                  ((board[y-s][x+s].color != tolower(player[0])) && (board[y-s][x+s].piece == 'B'))){
+            a=1;
+        }
+        if (board[y+s][x-s].color == 0){
+            if(((board[y+(s+1)][x-(s+1)].color != tolower(player[0])) && (board[y+(s+1)][x-(s+1)].piece == 'Q')) ||
+                ((board[y+(s+1)][x-(s+1)].color != tolower(player[0])) && (board[y+(s+1)][x-(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if (((board[y+s][x-s].color != tolower(player[0])) && (board[y+s][x-s].piece == 'Q')) ||
+                  ((board[y+s][x-s].color != tolower(player[0])) && (board[y+s][x-s].piece == 'B'))){
+            a=1;
+        }
+        if (board[y+s][x+s].color == 0){
+            if(((board[y+(s+1)][x+(s+1)].color != tolower(player[0])) && (board[y+(s+1)][x+(s+1)].piece == 'Q')) ||
+                ((board[y+(s+1)][x+(s+1)].color!= tolower(player[0])) && (board[y+(s+1)][x+(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if (((board[y+s][x+s].color != tolower(player[0])) && (board[y+s][x+s].piece == 'Q')) ||
+                  ((board[y+s][x+s].color != tolower(player[0])) && (board[y+s][x+s].piece == 'B'))){
+            a=1;
+        }
+        //checks for rook or Queen.
+        if(board[y][x+s].color == 0){
+            if(((board[y][x+(s+1)].color != tolower(player[0])) && (board[y][x+(s+1)].piece == 'Q')) ||
+               ((board[y][x+(s+1)].color != tolower(player[0])) && (board[y][x+(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if(((board[y][x+s].color != tolower(player[0])) && (board[y][x+s].piece == 'Q')) ||
+            ((board[y][x+s].color != tolower(player[0])) && (board[y][x+s].piece == 'B'))){
+            a=1;
+        }
+        if (board[y][x-s].color == 0){
+            if(((board[y][x-(s+1)].color != tolower(player[0])) && (board[y][x-(s+1)].piece == 'Q')) ||
+               ((board[y][x-(s+1)].color != tolower(player[0])) && (board[y][x-(s+1)].piece == 'B'))){
+                a=1;
+            }
+        }else if(((board[y][x-s].color != tolower(player[0])) && (board[y][x-s].piece == 'Q')) ||
+                 ((board[y][x-s].color != tolower(player[0])) && (board[y][x-s].piece == 'B'))){
+            a=1;
+        }
+        if (board[y+s][x].color == 0){
+            if(((board[y+(s+1)][x].color != tolower(player[0])) && (board[y+(s+1)][x].piece == 'Q')) ||
+               ((board[y+(s+1)][x].color != tolower(player[0])) && (board[y+(s+1)][x].piece == 'B'))){
+                a=1;
+            }
+        }else if(((board[y+s][x].color != tolower(player[0])) && (board[y+s][x].piece == 'Q')) ||
+                 ((board[y+s][x].color != tolower(player[0])) && (board[y+s][x].piece == 'B'))){
+            a=1;
+        }
+        if (board[y-s][x].color == 0){
+            if(((board[y-(s+1)][x].color != tolower(player[0])) && (board[y-(s+1)][x].piece == 'Q')) ||
+               ((board[y-(s+1)][x].color != tolower(player[0])) && (board[y-(s+1)][x].piece == 'B'))){
+                a=1;
+            }
+        }else if(((board[y-s][x].color != tolower(player[0])) && (board[y-s][x].piece == 'Q')) ||
+                 ((board[y-s][x].color != tolower(player[0])) && (board[y-s][x].piece == 'B'))){
+            a=1;
+        }
+    }
+    if(a==1){
+        printf("You're in check!!\n");
     }
     return a;
 }
 
-//int castling{
-//    int a = 0;
-//    char d = start[0];
-//    int m = start[1];
-//    char e = end[0];
-//    int n = end[1];
-//    if (abs(d - e) > 1) {
-//        if (((e == 'a') && (board[56 - n][(e - 1) - 'a'].color == 0) && (board[56 - n][(e - 2) - 'a'].color == 0) &&
-//             (board[56 - n][(e - 3) - 'a'].color == 0)) ||
-//            ((e == 'h') && (board[56 - n][(e + 1) - 'a'].color == 0) &&
-//             (board[56 - n][(e + 2) - 'a'].color == 0))) {
-//            if(e == 'a'){
-//                if ((board[56 - n][0].color == tolower(player[0])) &&
-//                    (board[56 - n][0].piece == 'R')) {
-//                    board[56 - n][0].color = 0; //sets rook spot to empty
-//                    board[56 - n][0].piece = 0;
-//                    board[56 - n][3].color = (char) tolower(player[0]);//sets new spot where rook goes
-//                    board[56 - n][3].piece = 'R';
-//                    board[56 - n][2].color = (char) tolower(player[0]);
-//                    board[56 - n][2].piece = 'K';
-//                }
-//            }
-//            if(e == 'h') {
-//                if ((board[56 - n][0].color == tolower(player[0])) &&
-//                    (board[56 - n][0].piece == 'R')) {
-//                    board[56 - n][0].color = 0; //sets rook spot to empty
-//                    board[56 - n][7].color = 0; //sets rook spot to empty
-//                    board[56 - n][7].piece = 0;
-//                    board[56 - n][5].color = (char) tolower(player[0]);//sets new spot where rook goes
-//                    board[56 - n][5].piece = 'R';
-//                    board[56 - n][6].color = (char) tolower(player[0]);
-//                    board[56 - n][6].piece = 'K';
-//                }
-//            }
-//
-//        }else {
-//            printf("ERROR: Not a legal castle.\n");
-//            a = 1;
-//        }
-//    }
-//};
+
+
 
 
