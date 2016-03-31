@@ -28,4 +28,3 @@ int main()
 	// }
 
 }
-//to call a space on the board it's letter minus a, 8 minus number
