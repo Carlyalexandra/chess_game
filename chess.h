@@ -23,7 +23,7 @@ typedef struct move
 
 void printletters();
 void printboard(piece board[8][8]);
-struct move getmove(char* player);
+struct move getmove();
 void initboard(piece board[8][8]);
 int isvalidopen(char*player);
 int isvalidmove(char*player);

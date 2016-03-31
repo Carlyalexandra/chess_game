@@ -17,14 +17,11 @@ extern char black;
 
 int main()
 {
-	char *player = "WHITE";
 	move v;
 	initboard(board);
 	printboard(board);
-	v = getmove(player);
-	// while
-	// {
-		makemove(v);
-	// }
+	v = getmove();
+	makemove(v);
+
 
 }
