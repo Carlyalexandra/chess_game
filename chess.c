@@ -739,14 +739,12 @@ int check(char*player){
         if (((board[y-1][x-1].piece == 'P') && (board[y-1][x-1].color == 'b')) ||
             ((board[y-1][x+1].piece == 'P') && (board[y-1][x+1].color == 'b'))) {
             a = 1;
-            printf("P1\n");
         }
     }
     if(player[0]=='B') {
         if (((board[y+1][x-1].piece == 'P') && (board[y+1][x-1].color == 'w')) ||
             ((board[y+1][x+1].piece == 'P') && (board[y+1][x+1].color == 'w'))) {
-            a = 1;
-            printf("P2\n");
+            a = 1;;
         }
     }
     //in check from a knight
@@ -758,7 +756,6 @@ int check(char*player){
        ((board[y+2][x-1].piece =='R') && (board[y+2][x-1].color != q)) ||
        ((board[y+1][x+2].piece =='R') && (board[y+1][x+2].color != q)) ||
        ((board[y+2][x+1].piece =='R') && (board[y+2][x+1].color != q))) {
-        printf("KNIGHT\n");
         a=1;
     }
     int s;
@@ -767,19 +764,16 @@ int check(char*player){
         if (board[y-s][x-s].color == 0){
             if(((board[y-(s+1)][x-(s+1)].color != q) && (board[y-(s+1)][x-(s+1)].piece == 'Q')) ||
                ((board[y-(s+1)][x-(s+1)].color != q) && (board[y-(s+1)][x-(s+1)].piece == 'B'))){
-                printf("B1\n");
                 a=1;
             }
         }else if (((board[y-s][x-s].color != q) && (board[y-s][x-s].piece == 'Q')) ||
                 ((board[y-s][x-s].color != q) && (board[y-s][x-s].piece == 'B'))){
             a=1;
-            printf("B2\n");
         }
         if (board[y-s][x+s].color == 0){
             if(((board[y-(s+1)][x+(s+1)].color != q) && (board[y-(s+1)][x+(s+1)].piece == 'Q')) ||
                 ((board[y-(s+1)][x+(s+1)].color != q) && (board[y-(s+1)][x+(s+1)].piece == 'B'))){
                 a=1;
-                printf("B3\n");
             }
         }else if (((board[y-s][x+s].color != q) && (board[y-s][x+s].piece == 'Q')) ||
                   ((board[y-s][x+s].color != q) && (board[y-s][x+s].piece == 'B'))){
@@ -795,69 +789,58 @@ int check(char*player){
         }else if (((board[y+s][x-s].color != q) && (board[y+s][x-s].piece == 'Q')) ||
                   ((board[y+s][x-s].color != q) && (board[y+s][x-s].piece == 'B'))){
             a=1;
-            printf("B6\n");
         }
         if (board[y+s][x+s].color == 0){
             if(((board[y+(s+1)][x+(s+1)].color != q) && (board[y+(s+1)][x+(s+1)].piece == 'Q')) ||
                 ((board[y+(s+1)][x+(s+1)].color!= q) && (board[y+(s+1)][x+(s+1)].piece == 'B'))){
                 a=1;
-                printf("B7\n");
             }
         }else if (((board[y+s][x+s].color != q) && (board[y+s][x+s].piece == 'Q')) ||
                   ((board[y+s][x+s].color != q) && (board[y+s][x+s].piece == 'B'))){
             a=1;
-            printf("B8\n");
          }
         //checks for rook or Queen.
         if(board[y][x+s].color == 0){
             if(((board[y][x+(s+1)].color != q) && (board[y][x+(s+1)].piece == 'Q')) ||
                ((board[y][x+(s+1)].color != q) && (board[y][x+(s+1)].piece == 'B'))){
                 a=1;
-                printf("R1\n");
             }
         }else if(((board[y][x+s].color != q) && (board[y][x+s].piece == 'Q')) ||
             ((board[y][x+s].color != q) && (board[y][x+s].piece == 'B'))){
             a=1;
-            printf("R2\n");
         }
         if (board[y][x-s].color == 0){
             if(((board[y][x-(s+1)].color != q) && (board[y][x-(s+1)].piece == 'Q')) ||
                ((board[y][x-(s+1)].color != q) && (board[y][x-(s+1)].piece == 'B'))){
                 a=1;
-                printf("R3\n");
             }
         }else if(((board[y][x-s].color != q) && (board[y][x-s].piece == 'Q')) ||
                  ((board[y][x-s].color != q) && (board[y][x-s].piece == 'B'))){
             a=1;
-            printf("R4\n");
         }
         if (board[y+s][x].color == 0){
             if(((board[y+(s+1)][x].color != q) && (board[y+(s+1)][x].piece == 'Q')) ||
                ((board[y+(s+1)][x].color != q) && (board[y+(s+1)][x].piece == 'B'))){
                 a=1;
-                printf("R5\n");
             }
         }else if(((board[y+s][x].color != q) && (board[y+s][x].piece == 'Q')) ||
                  ((board[y+s][x].color != q) && (board[y+s][x].piece == 'B'))){
             a=1;
-            printf("R6\n");
         }
         if (board[y-s][x].color == 0){
             if(((board[y-(s+1)][x].color != q) && (board[y-(s+1)][x].piece == 'Q')) ||
                ((board[y-(s+1)][x].color != q) && (board[y-(s+1)][x].piece == 'B'))){
                 a=1;
-                printf("R7\n");
             }
         }else if(((board[y-s][x].color != q) && (board[y-s][x].piece == 'Q')) ||
                  ((board[y-s][x].color != q) && (board[y-s][x].piece == 'B'))){
             a=1;
-            printf("R8\n");
         }
     }
-    if(a==1){
-        printf("%s, you're in check!!\n",player);
-    }
-    printf("%s's king is %c%d\n",player,x+'a',8-y);
+//    if(a==1){
+//        printf("%s, you're in check!!\n",player);
+//    }
+    printf("%s's (%c) king is %c%d\n",player,q, x+'a',8-y.);
     return a;
 }
 
