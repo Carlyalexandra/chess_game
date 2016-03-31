@@ -840,7 +840,7 @@ int check(char*player){
 //    if(a==1){
 //        printf("%s, you're in check!!\n",player);
 //    }
-    printf("%s's (%c) king is %c%d\n",player,q, x+'a',8-y.);
+    printf("%s's (%c) king is %c%d.\n",player,q, x+'a',8-y);
     return a;
 }
 
